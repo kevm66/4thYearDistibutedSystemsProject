@@ -192,6 +192,12 @@ public abstract class Client {
                 pollSocket.close();
             } catch (Exception ioe) {
                 ui.updateArea("Server Down - attempting to poll service");
+                //can add additional things
+                //- more than one of the same service type -> you can switch between them -> connection altered
+                //- option to switch to another service
+                //- option to change the sservice to antoher one
+                //- can't connect to speaker 1, connect to (or ask to connect to) speaker 2
+                //- handle failure of redundancy -> 1 speaker goes down -> connect to another
             }
         }
     }
