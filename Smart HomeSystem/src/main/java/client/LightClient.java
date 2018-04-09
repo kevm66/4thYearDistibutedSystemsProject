@@ -12,7 +12,8 @@ import clientui.LightUI;
  */
 public class LightClient extends Client {
 
-    private final String WARM = "Warm";
+    private final String LIGHT = "Light";
+    private final String DARK = "Dark";
     private boolean isWarming = false;
 
     /**
@@ -30,7 +31,7 @@ public class LightClient extends Client {
      */
     public void warm() {
         if (!isWarming) {
-            String a = sendMessage(WARM);
+            String a = sendMessage(LIGHT);
             if (a.equals(OK)) {
                 isWarming = true;
                 ui.updateArea("Bed is Warming");
@@ -40,7 +41,24 @@ public class LightClient extends Client {
         }
     }
 
-    @Override
+   
+
+    public void power_on() {
+        System.out.println("Light is turned On");
+    }
+
+    public void power_off() {
+        System.out.println("Light is turned Off");
+    }
+
+    public void brightUp() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void darken() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+     @Override
     public void updatePoll(String msg) {
         if (msg.equals("Bed is 100% warmed.")) {
             isWarming = false;

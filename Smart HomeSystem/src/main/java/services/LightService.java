@@ -11,10 +11,12 @@ import serviceui.ServiceUI;
 public class LightService extends Service {
 
     private final Timer timer;
-    private int percentHot;
-
+    private int bright;
+    private int dark;
+    private static boolean on, off;
+    
     public LightService(String name) {
-        super(name, "_bed._udp.local.");
+        super(name, "_light._udp.local.");
         timer = new Timer();
         percentHot = 0;
         ui = new ServiceUI(this, name);

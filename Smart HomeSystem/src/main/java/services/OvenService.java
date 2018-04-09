@@ -45,7 +45,7 @@ public class OvenService extends Service {
          */
 
 //get status of Oven process     
-        System.out.println("recieved: " + a);
+        System.out.println("received: " + a);
         OvenModel oven = new Gson().fromJson(a, OvenModel.class);
 
        /* if (oven.getAction() == OvenModel.Action.STATUS) {
