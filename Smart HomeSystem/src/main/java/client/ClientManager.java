@@ -39,7 +39,7 @@ public class ClientManager implements ServiceListener {
         clients.add(new BedClient());
         clients.add(new OvenClient());
         clients.add(new LightClient());
-        clients.add(new KettleClient());
+        clients.add(new SpeakerClient());
         clients.add(new TVClient());
 
         try {

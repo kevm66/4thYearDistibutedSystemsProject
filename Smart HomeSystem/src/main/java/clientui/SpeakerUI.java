@@ -2,17 +2,17 @@ package clientui;
 
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
-import client.KettleClient;
+import client.SpeakerClient;
 
-public class KettleUI extends ClientUI {
+public class SpeakerUI extends ClientUI {
 
     private static final long serialVersionUID = -5318589393275157185L;
     private JButton warm;
-    private final KettleClient parent;
+    private final SpeakerClient parent;
 
-    public KettleUI(KettleClient kettleClient) {
-        super(kettleClient);
-        parent = kettleClient;
+    public SpeakerUI(SpeakerClient speakerClient) {
+        super(speakerClient);
+        parent = speakerClient;
         init();
     }
 

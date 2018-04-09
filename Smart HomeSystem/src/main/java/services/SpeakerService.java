@@ -6,15 +6,15 @@ import java.util.TimerTask;
 import serviceui.ServiceUI;
 
 /**
- * The Class KettleService.
+ * The Class SpeakerService.
  */
-public class KettleService extends Service {
+public class SpeakerService extends Service {
 
     private final Timer timer;
     private int percentHot;
 
-    public KettleService(String name) {
-        super(name, "_kettle._udp.local.");
+    public SpeakerService(String name) {
+        super(name, "_speaker._udp.local.");
         timer = new Timer();
         percentHot = 0;
         ui = new ServiceUI(this, name);
@@ -28,7 +28,7 @@ public class KettleService extends Service {
 // every task should run every 2 seconds
             timer.schedule(new RemindTask(), 0, 2000);
             sendBack("OK");
-            ui.updateArea("Warming Kettle");
+            ui.updateArea("Warming Speaker");
         } else {
             sendBack(BAD_COMMAND + " - " + a);
         }
@@ -47,15 +47,15 @@ public class KettleService extends Service {
 
     @Override
     public String getStatus() {
-        return "Kettle is " + percentHot + "% warmed.";
+        return "Speaker is " + percentHot + "% warmed.";
     }
 
     public static void main(String[] args) {
-        new KettleService("Dominic's Kettle");
-      /*  new KettleService("Karry's Kettle");
-        new KettleService("Kevin's Kettle");
-        new KettleService("Living Room");
-        new KettleService("Kitchen");*/
+        new SpeakerService("Dominic's Speaker");
+      /*  new SpeakerService("Karry's Speaker");
+        new SpeakerService("Kevin's Speaker");
+        new SpeakerService("Living Room");
+        new SpeakerService("Kitchen");*/
     }
     
     

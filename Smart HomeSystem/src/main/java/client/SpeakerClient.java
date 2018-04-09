@@ -3,46 +3,46 @@
  */
 package client;
 
-import clientui.KettleUI;
+import clientui.SpeakerUI;
 
 /**
- * Kettle Client.
+ * Speaker Client.
  *
  * @author dominic
  */
-public class KettleClient extends Client {
+public class SpeakerClient extends Client {
 
     private final String WARM = "Warm";
     private boolean isWarming = false;
 
     /**
-     * Kettle Client Constructor.
+     * Speaker Client Constructor.
      */
-    public KettleClient() {
+    public SpeakerClient() {
         super();
-        serviceType = "_kettle._udp.local.";
-        ui = new KettleUI(this);
-        name = "Kettle";
+        serviceType = "_speaker._udp.local.";
+        ui = new SpeakerUI(this);
+        name = "Speaker";
     }
 
     /**
-     * sends a message to warm the kettle.
+     * sends a message to warm the speaker.
      */
     public void warm() {
         if (!isWarming) {
             String a = sendMessage(WARM);
             if (a.equals(OK)) {
                 isWarming = true;
-                ui.updateArea("Kettle is Warming");
+                ui.updateArea("Speaker is Warming");
             }
         } else {
-            ui.updateArea("Kettle already Warming");
+            ui.updateArea("Speaker already Warming");
         }
     }
 
     @Override
     public void updatePoll(String msg) {
-        if (msg.equals("Kettle is 100% warmed.")) {
+        if (msg.equals("Speaker is 100% warmed.")) {
             isWarming = false;
         }
     }
@@ -50,7 +50,7 @@ public class KettleClient extends Client {
     @Override
     public void disable() {
         super.disable();
-        ui = new KettleUI(this);
+        ui = new SpeakerUI(this);
         isWarming = false;
     }
 }
