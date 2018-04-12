@@ -21,6 +21,7 @@ public class BedClient extends Client {
     public BedClient() {
         super();
         serviceType = "_bed._udp.local.";
+//        deviceType = "bed";
         ui = new BedUI(this);
         name = "Bedroom";
     }

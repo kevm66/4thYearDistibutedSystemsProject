@@ -13,6 +13,7 @@ public class LightService extends Service {
     private final Timer timer;
     private int bright;
     private int dark;
+    private int percentHot; //was causing error when missing
     private static boolean on, off;
     
     public LightService(String name) {

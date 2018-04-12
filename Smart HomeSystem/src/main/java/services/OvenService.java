@@ -1,6 +1,6 @@
 package services;
 
-import com.google.gson.Gson;
+//import com.google.gson.Gson;
 import java.util.Timer;
 import java.util.TimerTask;
 import model.OvenModel;
@@ -46,7 +46,7 @@ public class OvenService extends Service {
 
 //get status of Oven process     
         System.out.println("received: " + a);
-        OvenModel oven = new Gson().fromJson(a, OvenModel.class);
+//        OvenModel oven = new Gson().fromJson(a, OvenModel.class);
 
        /* if (oven.getAction() == OvenModel.Action.STATUS) {
             String msg = getStatus();

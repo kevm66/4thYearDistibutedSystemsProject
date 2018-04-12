@@ -13,6 +13,10 @@ import javax.jmdns.ServiceInfo;
 import javax.swing.JPanel;
 
 import clientui.ClientUI;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * Abstract super class for all clients.
@@ -25,6 +29,7 @@ public abstract class Client {
     protected String serverHost = "";
     protected int serverPort = 0;
     protected String serviceType = "stuff";
+//    protected String deviceType = "device";
     protected boolean initialized = false;
     protected String name = " ";
     protected String GET_STATUS = "get_status";
@@ -44,6 +49,18 @@ public abstract class Client {
     public Client() {
         serverStatus = "";
         services = new HashMap<String, ServiceInfo>();
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     public void remove(String key) {
@@ -136,6 +153,10 @@ public abstract class Client {
     public String getServiceType() {
         return serviceType;
     }
+    
+//     public String getDeviceType() {
+//        return deviceType;
+//    }
 
     public void setUp(String server, int port) {
         System.out.println(serverHost + " " + server + " " + serverPort + " " + port);
@@ -192,12 +213,6 @@ public abstract class Client {
                 pollSocket.close();
             } catch (Exception ioe) {
                 ui.updateArea("Server Down - attempting to poll service");
-                //can add additional things
-                //- more than one of the same service type -> you can switch between them -> connection altered
-                //- option to switch to another service
-                //- option to change the sservice to antoher one
-                //- can't connect to speaker 1, connect to (or ask to connect to) speaker 2
-                //- handle failure of redundancy -> 1 speaker goes down -> connect to another
             }
         }
     }
@@ -208,6 +223,7 @@ public abstract class Client {
 
     public void updatePoll(String msg) {
         // TODO Auto-generated method stub
+        
 
     }
 

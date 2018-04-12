@@ -23,7 +23,10 @@ public class ServiceUI extends JFrame {
     private static final long serialVersionUID = -4512962459244007477L;
 
     public ServiceUI(final Service a, String title) {
-        super(title + " - " + a.getType());
+//        super(title + " " + a.getType());
+        super(title);
+
+//        super(title + " " +a.getDeviceType());
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -48,6 +51,7 @@ public class ServiceUI extends JFrame {
         scroll.setBounds(5, 5, UIConstants.UIWIDTH - 10, 268);
         scroll.setViewportView(pane);
         panel.add(scroll);
+        pane.setText("Welcome!\nSelect an option in the dashboard screen to control this device.");
     }
 
     public void clearArea() {
@@ -55,7 +59,8 @@ public class ServiceUI extends JFrame {
     }
 
     public void updateArea(String a) {
-        pane.append("\n" + a);
+        pane.setText(a);
+//        pane.setText("\n" + a);
     }
 
     public static Point setPosition(Component c) {

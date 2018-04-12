@@ -12,6 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import client.ClientManager;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 public class ClientManagerUI extends JFrame {
 
@@ -19,13 +22,15 @@ public class ClientManagerUI extends JFrame {
     private static final long serialVersionUID = -4512962459244007477L;
 
     public ClientManagerUI(final ClientManager clientManager) {
-        super("Smart Home");
+        super("K-Smart Home Management System - Dashboard");
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 clientManager.end();
             }
         });
+        
+        
         setResizable(false);
         pack();
         setSize(UIConstants.UIWIDTH, UIConstants.UIWIDTH);
@@ -35,6 +40,12 @@ public class ClientManagerUI extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         update(this.getGraphics());
+        
+//        JLabel label1 = new JLabel("Test");
+//        label1.setText("Label Text");
+//        //label1.setText("");
+//        
+//        JOptionPane.showMessageDialog(null, "No services running");
     }
 
     public static Point setPosition(Component c) {
@@ -49,5 +60,9 @@ public class ClientManagerUI extends JFrame {
 
     public void removePanel(JPanel returnUI) {
         allPanels.remove(returnUI);
+    }
+
+    public void updateArea(String e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

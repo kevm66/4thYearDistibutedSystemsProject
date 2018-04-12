@@ -6,7 +6,7 @@ import java.util.TimerTask;
 import serviceui.ServiceUI;
 
 /**
- * The Class LightService.
+ * The Class BedService.
  */
 public class BedService extends Service {
 
@@ -22,10 +22,10 @@ public class BedService extends Service {
 
     @Override
     public void performAction(String a) {
-        if (a.equals("get_status")) {
+        if (a.equals("get_status")) { //if the system is asked for the current 
+            //staus
             sendBack(getStatus());
-        } else if (a.equals("Warm")) {
-// every task should run every 2 seconds
+        } else if (a.equals("Warm")) { //if system is asked to warm
             timer.schedule(new RemindTask(), 0, 2000);
             sendBack("OK");
             ui.updateArea("Warming Bed");
@@ -39,7 +39,6 @@ public class BedService extends Service {
         @Override
         public void run() {
             if (percentHot < 100) {
-// every time run method gets called it adds 10% until it goes to 100^
                 percentHot += 10;
             }
         }
@@ -51,12 +50,6 @@ public class BedService extends Service {
     }
 
     public static void main(String[] args) {
-        new LightService("Dominic's Bedroom");
-      /*  new LightService("Karry's Bedroom");
-        new LightService("Kevin's Bedroom");
-        new LightService("Living Room");
-        new LightService("Kitchen");*/
+        new BedService("Dominic's");
     }
-    
-    
 }

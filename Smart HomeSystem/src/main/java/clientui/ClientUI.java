@@ -47,14 +47,18 @@ public abstract class ClientUI extends JPanel implements ActionListener {
         services.setBounds(170, 5, 200, 30);
         controls = new JPanel();
         controls.setBounds(5, UIConstants.CONTROLY, UIConstants.COMPONENTWIDTH,
-                50);
+                100);
         controls.setLayout(new FlowLayout());
-        controls.setBorder(BorderFactory.createLineBorder(Color.black));
+        //controls.setBorder(BorderFactory.createLineBorder(Color.black));
         add(controls);
         textArea = new JTextArea();
         scroll = new JScrollPane();
         scroll.setViewportView(textArea);
         add(scroll);
+        textArea.setText("Welcome to the dashboard!\nClick one of the options below to get started.");
+        //textArea.setText("No Services are currently running.\nPlease run a service to get started.");
+        
+        
     }
 
     public void add(JButton[] a) {
@@ -93,6 +97,10 @@ public abstract class ClientUI extends JPanel implements ActionListener {
         textArea.setText("");
     }
 
+    public void setupArea(){
+        textArea.setText("No services are currently running");
+    }
+    
     public void updateArea(String string) {
         if (textArea.getText().equals("")) {
             textArea.append(string);

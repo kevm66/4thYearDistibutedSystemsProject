@@ -7,15 +7,20 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import serviceui.ServiceUI;
 
 public abstract class Service extends Thread {
 
     protected String SERVICE_TYPE;
+    protected String SERVICE_TYPE_NAME;
     protected String SERVICE_NAME;
     protected int SERVICE_PORT;
     protected int my_backlog = 5;
@@ -32,12 +37,22 @@ public abstract class Service extends Thread {
 
     public Service(String name, String type) {
         this(name, type, "");
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Service.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Service.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Service.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(Service.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public Service(String name, String type, String location) {
         SERVICE_NAME = name;
         try {
-            //finds random port
             SERVICE_PORT = findFreePort();
         } catch (IOException e2) {
             e2.printStackTrace();
@@ -63,7 +78,7 @@ public abstract class Service extends Thread {
         }
         start();
     }
-//turn off server
+
     public void deRegister() {
         jmdns.unregisterService(info);
         try {
@@ -87,9 +102,8 @@ public abstract class Service extends Thread {
 
                 in = new BufferedReader(new InputStreamReader(socket
                         .getInputStream()));
-//reads information from the client
+
                 String msg = in.readLine();
-//perform something implemented
                 performAction(msg);
                 in.close();
                 socket.close();
@@ -109,11 +123,15 @@ public abstract class Service extends Thread {
     public String getServiceName() {
         return SERVICE_NAME;
     }
+    
+    public String getTypeName() {
+        return SERVICE_TYPE_NAME;
+    }
 
     public int getPort() {
         return SERVICE_PORT;
     }
-//send back information to the client
+
     public void sendBack(String a) {
         try {
             out = new PrintWriter(socket.getOutputStream(), true);
@@ -123,7 +141,7 @@ public abstract class Service extends Thread {
             ui.updateArea("Client not accessible");
         }
     }
-//every service performs its own action
+
     protected abstract void performAction(String a);
 
     public static int findFreePort() throws IOException {
@@ -135,4 +153,8 @@ public abstract class Service extends Thread {
 
     public abstract String getStatus();
 
+//     public String getStatus(){
+//        return "No services are running yet.";
+//    }
+    
 }

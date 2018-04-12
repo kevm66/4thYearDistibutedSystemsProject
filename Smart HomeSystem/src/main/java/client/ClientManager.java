@@ -12,43 +12,32 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
-
-/*File Title:ClientMangaer.java							
- *
- * @author:Karolina Laptas, x14446332
- * @author:Kevin Maher,     x14328981
- *
- * @reference sample by Dominic Carr https://moodle.ncirl.ie/course/view.php?id=1473	
- */
-
-
-//Control UI frame
-public class ClientManager implements ServiceListener {
+public class ClientManager implements ServiceListener{
 
     private final ClientManagerUI ui;
     private JmDNS jmdns;
-  //  private final LightClient client = new LightClient();
-    
+//    private final BedClient client = new BedClient();
 
     private ArrayList<Client> clients;
-
+    
+    
     public ClientManager() {
-
         clients = new ArrayList<>();
-        clients.add(new BedClient());
-        clients.add(new OvenClient());
         clients.add(new LightClient());
+        clients.add(new OvenClient());
         clients.add(new SpeakerClient());
         clients.add(new TVClient());
-
+        
         try {
             jmdns = JmDNS.create(InetAddress.getLocalHost());
-            for (Client client : clients) {
+            for (Client client : clients){
                 jmdns.addServiceListener(client.getServiceType(), this);
+//              jmdns.addServiceListener(client.getDeviceType(), this);   
             }
             
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -67,14 +56,13 @@ public class ClientManager implements ServiceListener {
         System.out.println(arg0);
         arg0.getDNS().requestServiceInfo(arg0.getType(), arg0.getName(), 0);
     }
-//service online
 
     public void serviceRemoved(ServiceEvent arg0) {
         System.out.println(arg0);
         String type = arg0.getType();
         String name = arg0.getName();
         ServiceInfo newService = null;
-
+        
         for (Client client : clients) {
             if (client.getServiceType().equals(type) && client.hasMultiple()) {
                 if (client.isCurrent(name)) {
@@ -92,12 +80,10 @@ public class ClientManager implements ServiceListener {
                 client.disable();
                 client.initialized = false;
             }
-            
-
         }
-
+        
+        
     }
-//where service works off     
 
     public void serviceResolved(ServiceEvent arg0) {
         System.out.println(arg0);
@@ -114,14 +100,14 @@ public class ClientManager implements ServiceListener {
             } else if (client.getServiceType().equals(type)
                     && client.isInitialized()) {
                 client.addChoice(arg0.getInfo());
+                
             }
         }
-
-        //Lights Client
+        
+        
     }
 
     public static void main(String[] args) {
-        new ClientManager();
-
+        new ClientManager();    
     }
 }

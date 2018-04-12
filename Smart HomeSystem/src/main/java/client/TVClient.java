@@ -12,7 +12,12 @@ import clientui.TVUI;
  */
 public class TVClient extends Client {
 
-    private final String WARM = "Warm";
+    private final String nextChannel = "Next Channel";
+    private final String previousChannel = "Previous Channel";
+    private final String increaseVolume = "Increase Volume";
+    private final String decreaseVolume = "Decrease Volume";
+    private final String connectToSpeaker = "Connect to Speaker";
+    private final String disconnectFromSpeaker = "Disconect from Speaker";
     private boolean isWarming = false;
 
     /**
@@ -28,22 +33,55 @@ public class TVClient extends Client {
     /**
      * sends a message to warm the tv.
      */
-    public void warm() {
-        if (!isWarming) {
-            String a = sendMessage(WARM);
-            if (a.equals(OK)) {
-                isWarming = true;
-                ui.updateArea("TV is Warming");
-            }
-        } else {
-            ui.updateArea("TV already Warming");
-        }
-    }
+//    public void warm() {
+//        if (!isWarming) {
+//            String a = sendMessage(WARM);
+//            if (a.equals(OK)) {
+//                isWarming = true;
+//                ui.updateArea("TV is Warming");
+//            }
+//        } else {
+//            ui.updateArea("TV already Warming");
+//        }
+//    }
 
+    public void power_on() {
+        ui.updateArea("TV has been switched on");
+    }
+    
+    public void power_off() {
+        ui.updateArea("TV has been switched Off");
+    }
+    
+    public void next_channel() {
+        ui.updateArea("Switched to the next TV channel");
+    }
+    
+    public void previous_channel() {
+        ui.updateArea("Switched to the previous TV channel");
+    }
+    
+    public void increase_volume() {
+        ui.updateArea("TV volume has been turned up");
+    }
+    
+    public void decrease_volume() {
+        ui.updateArea("TV volume has been turned down");
+    }
+    
+    public void connect_to_speaker() {
+        ui.updateArea("TV has been connected to speaker");
+    }
+    
+    public void disconnect_from_speaker() {
+        ui.updateArea("TV has been disconnected from speaker");
+    }
+       
     @Override
     public void updatePoll(String msg) {
-        if (msg.equals("TV is 100% warmed.")) {
-            isWarming = false;
+//        if (msg.equals("TV is 100% warmed.")) {
+        if (msg.equals("Speaker is not switched on. Press the 'on' button to turn on.")) {
+//            isWarming = false;
         }
     }
 
