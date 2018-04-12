@@ -15,7 +15,7 @@ import model.OvenModel;
  */
 public class OvenClient extends Client {
 
-    private final String PREHEAT = "Warm";
+    private final String PREHEAT = "Warm"; 
     private final String COOL = "COOL Temperature";
     private boolean isWarming = false;
 
