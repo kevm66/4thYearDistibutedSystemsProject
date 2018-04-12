@@ -36,19 +36,19 @@ public class SpeakerUI extends ClientUI {
         scroll.setBounds(5, 40, UIConstants.COMPONENTWIDTH, 300);
         add(new JButton[]{on});
         
-        //transfer audio button
-        transferAudio = new JButton("    Transfer Audio     ");
-        transferAudio.setEnabled(false);
-        transferAudio.setPreferredSize(new Dimension(180, 25));
-        scroll.setBounds(5, 40, UIConstants.COMPONENTWIDTH, 300);
-        add(new JButton[]{transferAudio});         
-        
         //increase volume button
         increaseVolume = new JButton("Volume +");
         increaseVolume.setEnabled(false);
-        increaseVolume.setPreferredSize(new Dimension(100, 25));
+        increaseVolume.setPreferredSize(new Dimension(140, 25));
         scroll.setBounds(5, 40, UIConstants.COMPONENTWIDTH, 300);
         add(new JButton[]{increaseVolume});
+        
+        //transfer audio button
+        transferAudio = new JButton("Transfer Audio");
+        transferAudio.setEnabled(false);
+        transferAudio.setPreferredSize(new Dimension(140, 25));
+        scroll.setBounds(5, 40, UIConstants.COMPONENTWIDTH, 300);
+        add(new JButton[]{transferAudio});         
         
         //connect to TV button
         connectToTV = new JButton("Connect to TV");
@@ -64,19 +64,19 @@ public class SpeakerUI extends ClientUI {
         scroll.setBounds(5, 40, UIConstants.COMPONENTWIDTH, 300);
         add(new JButton[]{off});     
         
+        //decrease volume button
+        decreaseVolume = new JButton("Volume -");
+        decreaseVolume.setEnabled(false);
+        decreaseVolume.setPreferredSize(new Dimension(140, 25));
+        scroll.setBounds(5, 40, UIConstants.COMPONENTWIDTH, 300);
+        add(new JButton[]{decreaseVolume});
+        
         //check weather button
         checkWeather = new JButton("Check Weather");
         checkWeather.setEnabled(false);
-        checkWeather.setPreferredSize(new Dimension(180, 25));
+        checkWeather.setPreferredSize(new Dimension(140, 25));
         scroll.setBounds(5, 40, UIConstants.COMPONENTWIDTH, 300);
-        add(new JButton[]{checkWeather});
-        
-            //decrease volume button
-        decreaseVolume = new JButton("Volume -");
-        decreaseVolume.setEnabled(false);
-        decreaseVolume.setPreferredSize(new Dimension(100, 25));
-        scroll.setBounds(5, 40, UIConstants.COMPONENTWIDTH, 300);
-        add(new JButton[]{decreaseVolume});
+        add(new JButton[]{checkWeather});        
 
         //disconnect from TV button
         disconnectFromTV = new JButton("Disconnect from TV");

@@ -30,33 +30,33 @@ public class TVUI extends ClientUI {
         super.init();
        
         //on button
-        on = new JButton("On ");
+        on = new JButton("On");
         on.setEnabled(true);
         on.setPreferredSize(new Dimension(80, 25));
         scroll.setBounds(5, 40, UIConstants.COMPONENTWIDTH, 300);
         add(new JButton[]{on});
         
-         //connect to speaker button
-        connectToSpeaker = new JButton("    Connect to Speaker    ");
-        connectToSpeaker.setEnabled(false);
-        connectToSpeaker.setPreferredSize(new Dimension(160, 25));
+        //increase volume button
+        increaseVolume = new JButton("Volume +");
+        increaseVolume.setEnabled(false);
+        increaseVolume.setPreferredSize(new Dimension(140, 25));
         scroll.setBounds(5, 40, UIConstants.COMPONENTWIDTH, 300);
-        add(new JButton[]{connectToSpeaker});
-         //
+        add(new JButton[]{increaseVolume});
+       
         //next channel button
-        nextChannel = new JButton("    Channel +  ");
+        nextChannel = new JButton("Channel +");
         nextChannel.setEnabled(false);
         nextChannel.setPreferredSize(new Dimension(140, 25));
         scroll.setBounds(5, 40, UIConstants.COMPONENTWIDTH, 300);
         add(new JButton[]{nextChannel});
         
-        //increase volume button
-        increaseVolume = new JButton(" Volume +");
-        increaseVolume.setEnabled(false);
-        increaseVolume.setPreferredSize(new Dimension(100, 25));
+        //connect to speaker button
+        connectToSpeaker = new JButton("Connect to Speaker");
+        connectToSpeaker.setEnabled(false);
+        connectToSpeaker.setPreferredSize(new Dimension(140, 25));
         scroll.setBounds(5, 40, UIConstants.COMPONENTWIDTH, 300);
-        add(new JButton[]{increaseVolume});
-        
+        add(new JButton[]{connectToSpeaker});
+                
         //off button
         off = new JButton("Off");
         off.setEnabled(false);
@@ -64,26 +64,26 @@ public class TVUI extends ClientUI {
         scroll.setBounds(5, 40, UIConstants.COMPONENTWIDTH, 300);
         add(new JButton[]{off});            
         
-        //disconnect from speaker button
-        disconnectFromSpeaker = new JButton(" Disconnect from Speaker ");
-        disconnectFromSpeaker.setEnabled(false);
-        disconnectFromSpeaker.setPreferredSize(new Dimension(160, 25)); //add to add
+        //decrease volume button
+        decreaseVolume = new JButton("Volume -");
+        decreaseVolume.setEnabled(false);
+        decreaseVolume.setPreferredSize(new Dimension(140, 25));
         scroll.setBounds(5, 40, UIConstants.COMPONENTWIDTH, 300);
-        add(new JButton[]{disconnectFromSpeaker});
-                      
+        add(new JButton[]{decreaseVolume});
+        
         //previous channel button
-        previousChannel = new JButton(" Channel -");
+        previousChannel = new JButton("Channel -");
         previousChannel.setEnabled(false);
         previousChannel.setPreferredSize(new Dimension(140, 25));
         scroll.setBounds(5, 40, UIConstants.COMPONENTWIDTH, 300);
         add(new JButton[]{previousChannel});
-                        
-        //decrease volume button
-        decreaseVolume = new JButton(" Volume -");
-        decreaseVolume.setEnabled(false);
-        decreaseVolume.setPreferredSize(new Dimension(100, 25));
+        
+        //disconnect from speaker button
+        disconnectFromSpeaker = new JButton("Disconnect Speaker");
+        disconnectFromSpeaker.setEnabled(false);
+        disconnectFromSpeaker.setPreferredSize(new Dimension(140, 25)); //add to add
         scroll.setBounds(5, 40, UIConstants.COMPONENTWIDTH, 300);
-        add(new JButton[]{decreaseVolume});
+        add(new JButton[]{disconnectFromSpeaker});  
         
         //delete
 //        warm = new JButton("Warm");
@@ -92,7 +92,6 @@ public class TVUI extends ClientUI {
     }
 
     //show/hide buttons
-
     
     @Override
     public void actionPerformed(ActionEvent e) {
