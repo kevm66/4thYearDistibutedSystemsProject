@@ -23,8 +23,8 @@ public class ServiceUI extends JFrame {
     private static final long serialVersionUID = -4512962459244007477L;
 
     public ServiceUI(final Service a, String title) {
-//        super(title + " " + a.getType());
-        super(title);
+        super(title + " " + a.getType());
+//        super(title);
 
 //        super(title + " " +a.getDeviceType());
         this.addWindowListener(new WindowAdapter() {

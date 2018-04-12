@@ -49,6 +49,8 @@ public abstract class Client {
     public Client() {
         serverStatus = "";
         services = new HashMap<String, ServiceInfo>();
+        
+        //set the theme of the client to the OS default
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException ex) {

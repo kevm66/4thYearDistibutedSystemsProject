@@ -6,15 +6,15 @@ import java.util.TimerTask;
 import serviceui.ServiceUI;
 
 /**
- * The Class BedService.
+ * The Class TVService Service.
  */
-public class BedService extends Service {
+public class TVServiceDominic extends Service {
 
     private final Timer timer;
     private int percentHot;
 
-    public BedService(String name) {
-        super(name, "_bed._udp.local.");
+    public TVServiceDominic(String name) {
+        super(name, "_tv._udp.local.");
         timer = new Timer();
         percentHot = 0;
         ui = new ServiceUI(this, name);
@@ -22,12 +22,13 @@ public class BedService extends Service {
 
     @Override
     public void performAction(String a) {
-        if (a.equals("get_status")) { //if the system is asked for the current status
+        if (a.equals("get_status")) {
             sendBack(getStatus());
-        } else if (a.equals("Warm")) { //if system is asked to warm
+        } else if (a.equals("Warm")) {
+// every task should run every 2 seconds
             timer.schedule(new RemindTask(), 0, 2000);
             sendBack("OK");
-            ui.updateArea("Warming Bed");
+            ui.updateArea("Warming TV");
         } else {
             sendBack(BAD_COMMAND + " - " + a);
         }
@@ -38,6 +39,7 @@ public class BedService extends Service {
         @Override
         public void run() {
             if (percentHot < 100) {
+// every time run method gets called it adds 10% until it goes to 100^
                 percentHot += 10;
             }
         }
@@ -45,10 +47,18 @@ public class BedService extends Service {
 
     @Override
     public String getStatus() {
-        return "Bed is " + percentHot + "% warmed.";
+        return "TV is " + percentHot + "% warmed.";
     }
 
     public static void main(String[] args) {
-        new BedService("Dominic's");
+//        new TVServiceDominic("Dominic's TV");
+        new TVService("Karry's TV");
+//        new TVService("Kevin's TV");
+      /*  new TVService("Karry's TVService");
+        new TVService("Kevin's TVService");
+        new TVService("Living Room");
+        new TVService("Kitchen");*/
     }
+    
+    
 }

@@ -25,6 +25,7 @@ public class TVUI extends ClientUI {
         init();
     }
 
+    //create client buttons
     @Override
     public void init() {
         super.init();
@@ -91,8 +92,7 @@ public class TVUI extends ClientUI {
 //        add(new JButton[]{warm});
     }
 
-    //show/hide buttons
-    
+    //show/hide client buttons
     @Override
     public void actionPerformed(ActionEvent e) {
 //        if (e.getSource() == warm) {

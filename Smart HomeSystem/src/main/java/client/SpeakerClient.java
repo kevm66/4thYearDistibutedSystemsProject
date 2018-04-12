@@ -48,35 +48,35 @@ public class SpeakerClient extends Client {
 //    }
 
     public void power_on() {
-        System.out.println("Speaker has been turned on");
+        ui.updateArea("Speaker has been turned on");
     }
     
     public void power_off() {
-        System.out.println("Speaker has been turned off");
+        ui.updateArea("Speaker has been turned off");
     }
     
     public void transfer_audio() {
-        System.out.println("Transfering audio to another speaker");
+        ui.updateArea("Transfering audio to another speaker");
     }
     
     public void check_weather() {
-        System.out.println("Check the weather forecast");
+        ui.updateArea("Checking the weather forecast");
     }
     
     public void increase_volume() {
-        System.out.println("Speaker volume has been turned up");
+        ui.updateArea("Speaker volume has been turned up 5%");
     }
     
     public void decrease_volume() {
-        System.out.println("Speaker volume has been turned down");
+        ui.updateArea("Speaker volume has been turned down 5%");
     }
     
     public void connect_to_tv() {
-        System.out.println("Speaker has been connected to TV");
+        ui.updateArea("Speaker has been connected to TV");
     }
     
     public void disconnect_from_tv() {
-        System.out.println("Speaker has been disconnected from TV");
+        ui.updateArea("Speaker has been disconnected from TV");
     }
     
     @Override

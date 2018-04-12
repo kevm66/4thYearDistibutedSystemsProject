@@ -37,6 +37,8 @@ public abstract class Service extends Thread {
 
     public Service(String name, String type) {
         this(name, type, "");
+        
+        //set the theme of the service to the OS default
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException ex) {

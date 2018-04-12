@@ -46,7 +46,10 @@ public class TVClient extends Client {
 //    }
 
     public void power_on() {
+//        if (!is off)
         ui.updateArea("TV has been switched on");
+//        else1
+//        ui.updateArea("TV has already been switched on");
     }
     
     public void power_off() {
@@ -62,11 +65,11 @@ public class TVClient extends Client {
     }
     
     public void increase_volume() {
-        ui.updateArea("TV volume has been turned up");
+        ui.updateArea("TV volume has been turned up 5%");
     }
     
     public void decrease_volume() {
-        ui.updateArea("TV volume has been turned down");
+        ui.updateArea("TV volume has been turned down 5%");
     }
     
     public void connect_to_speaker() {
