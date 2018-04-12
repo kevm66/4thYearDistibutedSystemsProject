@@ -1,7 +1,7 @@
 package client;
 
 import java.io.IOException;
-
+ 
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceInfo;
