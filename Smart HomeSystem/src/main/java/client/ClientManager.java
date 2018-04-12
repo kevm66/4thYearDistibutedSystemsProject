@@ -16,7 +16,11 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class ClientManager implements ServiceListener{
+<<<<<<< HEAD
     
+=======
+  
+>>>>>>> 432a447db57b4649868e83bcc6755205f9ad549b
     private final ClientManagerUI ui;
     private JmDNS jmdns;
 //    private final BedClient client = new BedClient();
