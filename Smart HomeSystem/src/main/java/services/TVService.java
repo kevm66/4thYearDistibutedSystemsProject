@@ -15,7 +15,9 @@ public class TVService extends Service {
     private final Timer timer;
     private int percentHot, currentChannel, firstChannel, lastChannel; //channelNumber
     private int lowestVolume, highestVolume, currentVolume;
-    private static boolean isOn, isOff, isChangingChannel, isChangingVolume, isConnecting, isConnected;
+    private static boolean isOn, isOff, isIncreasingVolume, isDecreasingVolume;
+    private static boolean isSwitchingNext, isSwitchingPrevious,isConnected;
+    private static boolean isConnecting, isDisconnecting;
     private String pass = "pass";
     Gson gson = new Gson();
     
@@ -23,7 +25,6 @@ public class TVService extends Service {
         super(name, "_tv._udp.local.");
         timer = new Timer();
         percentHot = 0;
-        ui = new ServiceUI(this, name);
         currentVolume = 40;
         currentChannel = 1;
         lowestVolume = 0;
@@ -45,9 +46,9 @@ public class TVService extends Service {
             sendBack(getStatus());
         } 
         
-        //power on
+       // power on
         else if (a.equals("On")) {
-            powerOn();
+            powerOnTv();
             String msg = (isOn) ? "The TV is on" : "TV is on";
             String json = gson.toJson(pass);
             sendBack(json);
@@ -58,7 +59,7 @@ public class TVService extends Service {
        
         //power off
         else if (a.equals("Off")) {
-            powerOff();
+            powerOffTv();
             String msg = (isOff) ? "The TV is off" : "TV is off";
             String json = gson.toJson(pass);
             sendBack(json);
@@ -68,36 +69,76 @@ public class TVService extends Service {
         }
         
         //next channel
-        else if (a.equals("Next Channel")) {
+        else if (a.equals("Next channel")) {
             nextChannel();
-            String msg = (isChangingChannel) ? "Switching to the next channel" : "TV is switching channel";
+            String msg = (isSwitchingNext) ? "Switching to the next channel" : "TV is switching to the next channel";
             String json = gson.toJson(pass);
 //            ui.updateArea(currentChannel);//int cannot be converted to string
             System.out.println(currentChannel);
             sendBack(json);
-            String serviceMessage = (isOff) ? "The TV is on" : "...";
+            String serviceMessage = (isSwitchingNext) ? "Changing to the next channel" : "...";
             ui.updateArea(serviceMessage);
         }
         
         //previous channel
-        else if (a.equals("Previous Channel")) {
+        else if (a.equals("Previous channel")) {
             previousChannel();
-            String msg = (isOff) ? "The TV is off" : "TV is off";
+            String msg = (isSwitchingPrevious) ? "Switching to the previous channel" : "TV is switching to the previous channel";
             String json = gson.toJson(pass);
 //            ui.updateArea(currentChannel);//int cannot be converted to string
-            System.out.println(currentChannel);
+            System.out.println(currentVolume);
             sendBack(json);
-            String serviceMessage = (isOff) ? "The TV is on" : "...";
+            String serviceMessage = (isSwitchingPrevious) ? "Changing to the next channel" : "...";
             ui.updateArea(serviceMessage);
         }
         
         //increase volume
+        else if (a.equals("Increase volume")) {
+            nextChannel();
+            String msg = (isIncreasingVolume) ? "Increasing volume" : "TV is increasing volume";
+            String json = gson.toJson(pass);
+//            ui.updateArea(currentChannel);//int cannot be converted to string
+            System.out.println(currentVolume);
+            sendBack(json);
+            String serviceMessage = (isIncreasingVolume) ? "Increasing the volume" : "...";
+            ui.updateArea(serviceMessage);
+        }
         
         //decrease volume
+        else if (a.equals("Decrease volume")) {
+            nextChannel();
+            String msg = (isDecreasingVolume) ? "Decreasing volume" : "TV is decreasing volume";
+            String json = gson.toJson(pass);
+//            ui.updateArea(currentChannel);//int cannot be converted to string
+            System.out.println(currentVolume);
+            sendBack(json);
+            String serviceMessage = (isDecreasingVolume) ? "Decreasing the volume" : "...";
+            ui.updateArea(serviceMessage);
+        }
         
         //connect to speaker
+        else if (a.equals("Connect to speaker")) {
+            nextChannel();
+            String msg = (isConnecting) ? "Connecting to speaker" : "TV is connecting to speaker";
+            String json = gson.toJson(pass);
+//            ui.updateArea(currentChannel);//int cannot be converted to string
+            System.out.println(isConnected);
+            sendBack(json);
+            String serviceMessage = (isConnecting) ? "Connecting to speaker" : "...";
+            ui.updateArea(serviceMessage);
+        }
         
         //disconnect from speaker
+        else if (a.equals("Disconnect from speaker")) {
+            nextChannel();
+            String msg = (isDisconnecting) ? "Disconnecting from speaker" : "TV is disconnecting from speaker";
+            String json = gson.toJson(pass);
+//            ui.updateArea(currentChannel);//int cannot be converted to string
+            System.out.println(isConnected);
+            sendBack(json);
+            String serviceMessage = (isDisconnecting) ? "Disconnecting from speaker" : "...";
+            ui.updateArea(serviceMessage);
+        }
         
         //error
         else {
@@ -106,11 +147,11 @@ public class TVService extends Service {
        
     }
     
-    public void powerOn() {
+    public void powerOnTv() {
         ui.updateArea("TV is turned on");
     }
     
-    public void powerOff() {
+    public void powerOffTv() {
         ui.updateArea("TV is turned off");
     }
 
@@ -148,23 +189,22 @@ public class TVService extends Service {
     }
     
     public void connectToSpeaker(){
-        //if not connected to speaker
-            //connect to speaker
-            //set audio to speaker
-            //ui.updateArea("connecting to speaker");
-        //if already connected to speaker
-            //do nothing
-            //ui.updateArea("already connected to speaker");
+        if(isConnected == false){ //if not connected to the speaker
+            //[set audio to speaker]
+            ui.updateArea("Donnecting to speaker");
+        }else{ //if already connected to speaker, do nothing
+            ui.updateArea("Already connected to speaker");
+        }
     }
     
     public void disconnectFromSpeaker(){
-        //if connected to speaker
-            //disconnect from speaker
-            //set audio to built-in TV audio
-            //ui.updateArea("disconnecting from speaker. Audio set to TV built-in audio");
-        //if not connected to speaker
-            //do nothing
-            //ui.updateArea("already disconnected from speaker");
+         if(isConnected == true){ //if already connected to the speaker
+            //[disconnect from speaker]
+            //[set audio to built-in TV audio]
+            ui.updateArea("Disconnecting from speaker. Audio set to TV built-in audio");
+        }else{ //if already connected to speaker, do nothing
+            ui.updateArea("Already disconnected from speaker");
+         }
     }
 
     class RemindTask extends TimerTask {

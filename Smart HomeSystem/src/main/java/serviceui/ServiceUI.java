@@ -59,8 +59,8 @@ public class ServiceUI extends JFrame {
     }
 
     public void updateArea(String a) {
-        pane.setText(a);
-//        pane.setText("\n" + a);
+//        pane.setText(a);
+        pane.setText("\n" + a);
     }
 
     public static Point setPosition(Component c) {

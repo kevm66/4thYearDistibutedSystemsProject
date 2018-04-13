@@ -19,11 +19,11 @@ public class TVModel {
         throw new UnsupportedOperationException("Not yet supported.");
     }
     
-    public TVModel(boolean PREHEAT, String msg, boolean preHeat){
+    public TVModel(boolean CONNECT, String msg, boolean connect){
         throw new UnsupportedOperationException("Not yet supported.");
     }
     
-    public TVModel(boolean PREHEAT){
+    public TVModel(boolean CONNECT){
         throw new UnsupportedOperationException("Not yet supported.");
     }
     
@@ -40,7 +40,8 @@ public class TVModel {
     }
     
     public static class Action{
-        public static boolean STATUS, ON, OFF, PREHEAT, COOL;
+        public static boolean STATUS, ON, OFF, COONECT, DISCONNECT, INCREASE_VOLUME;
+        public static boolean DECREASE_VOLUME, NEXT_CHANNEL, PREVIOUS_CHANNEL;
         
         public Action(){
             
