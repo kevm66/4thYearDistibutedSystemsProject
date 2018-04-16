@@ -15,18 +15,21 @@ import client.ClientManager;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-/*
- *
- * @reference Dominic Carr 													/example.java
- *
- */
 
+/* @File Title:ClientManager.java							
+ *
+ * @author:Karolina Laptas, x14446332
+ * @author:Kevin Maher,     x14328981
+ *
+ * @reference sample by Dominic Carr https://moodle.ncirl.ie/course/view.php?id=1473	
+ */
 public class ClientManagerUI extends JFrame {
-        private final JTabbedPane allPanels;
+
+    private final JTabbedPane allPanels;
     private static final long serialVersionUID = -4512962459244007477L;
 
     public ClientManagerUI(final ClientManager clientManager) {
-        super("Smart Home Management System - Dashboard");
+        super("K-Smart Home Management System - Dashboard");
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -42,13 +45,7 @@ public class ClientManagerUI extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         update(this.getGraphics());
-        
-//        JLabel label1 = new JLabel("Test");
-//        label1.setText("Label Text");
-//        //label1.setText("");
-//        
-//        JOptionPane.showMessageDialog(null, "No services running");
-   
+
     }
 
     public static Point setPosition(Component c) {
@@ -64,8 +61,8 @@ public class ClientManagerUI extends JFrame {
     public void removePanel(JPanel returnUI) {
         allPanels.remove(returnUI);
     }
+
     public void updateArea(String e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
-

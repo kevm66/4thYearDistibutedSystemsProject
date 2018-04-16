@@ -6,6 +6,14 @@ import clientui.LightsUI;
 
 import serviceui.ServiceUI;
 
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
+
 /*
  * @OvenService.java							
  *
@@ -13,13 +21,17 @@ import serviceui.ServiceUI;
  *
  * @reference sample by Dominic Carr https://moodle.ncirl.ie/course/view.php?id=1473	
  */
-
 public class LightsService extends Service {
 
     private int lighest;
     private int darkest;
     private int currentLight;
     private static boolean isLightened, isDarken, off, on;
+
+    String broker = "tcp://iot.eclipse.org:1883";
+    String clientId = "Subscriber";
+    MemoryPersistence persistence = new MemoryPersistence();
+    private MqttClient mqttClient;
 
     public LightsService(String name) {
         super(name, "_lights._udp.local.");
@@ -31,6 +43,52 @@ public class LightsService extends Service {
         off = true;
         on = false;
         ui = new ServiceUI(this, name);
+
+        try {
+            MqttClient SubscriberClient = new MqttClient(broker, clientId, persistence);
+            MqttConnectOptions connOpts = new MqttConnectOptions();
+            connOpts.setCleanSession(true);
+            SubscriberClient.setCallback(new SampleSubscriber());
+            System.out.println("Connecting to broker: " + broker);
+            SubscriberClient.connect(connOpts);
+            System.out.println("Connected");
+            SubscriberClient.subscribe("/house/#");
+
+            //Subscribe to all subtopics of home
+            final String topic = "home/#";
+
+            System.out.println("Subscriber is now listening to " + topic);
+        } catch (MqttException me) {
+            System.out.println("reason " + me.getReasonCode());
+            System.out.println("msg " + me.getMessage());
+            System.out.println("loc " + me.getLocalizedMessage());
+            System.out.println("cause " + me.getCause());
+            System.out.println("excep " + me);
+            me.printStackTrace();
+            System.exit(1);
+        }
+
+    }
+
+    class SampleSubscriber implements MqttCallback {
+
+        public SampleSubscriber() {
+
+        }
+
+        @Override
+        public void connectionLost(Throwable thrwbl) {
+        }
+
+        @Override
+        public void messageArrived(String string, MqttMessage mm) throws Exception {
+            System.out.println(mm + " arrived from topic " + string);
+        }
+
+        @Override
+        public void deliveryComplete(IMqttDeliveryToken imdt) {
+        }
+
     }
 
     @Override
@@ -125,6 +183,13 @@ public class LightsService extends Service {
     }
 
     public static void main(String[] args) {
-        new LightsService("Light");
+        new LightsService("Hall");
+        new LightsService("Room 1");
+        new LightsService("Room 2");
+        new LightsService("Room 3");
+        new LightsService("Living Room");
+        new LightsService("Kitchen");
+        new LightsService("Bathroom");
+
     }
 }

@@ -3,6 +3,7 @@ package clientui;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import client.LightsClient;
+import java.awt.Dimension;
 
 /*
  * @LightsUI.java							
@@ -11,7 +12,6 @@ import client.LightsClient;
  *
  * @reference sample skeleton by Dominic Carr https://moodle.ncirl.ie/course/view.php?id=1473	
  */
-
 public class LightsUI extends ClientUI {
 
     private static final long serialVersionUID = -5318589393275157185L;
@@ -19,6 +19,14 @@ public class LightsUI extends ClientUI {
     private JButton reduceLight;
     private JButton turnOff;
     private JButton turnOn;
+
+// Lights colour change
+    private JButton blue;
+    private JButton green;
+    private JButton orange;
+    private JButton purple;
+    private JButton pink;
+
     private final LightsClient parent;
 
     public LightsUI(LightsClient lightsClient) {
@@ -30,25 +38,45 @@ public class LightsUI extends ClientUI {
     @Override
     public void init() {
         super.init();
+        scroll.setBounds(5, 40, UIConstants.COMPONENTWIDTH, 300);
+
         lighten = new JButton("Brighten");
         lighten.setEnabled(false);
-        scroll.setBounds(5, 40, UIConstants.COMPONENTWIDTH, 300);
+        lighten.setPreferredSize(new Dimension(140, 25));
         add(new JButton[]{lighten});
 
         reduceLight = new JButton("Dim");
         reduceLight.setEnabled(false);
-        scroll.setBounds(5, 40, UIConstants.COMPONENTWIDTH, 300);
+        reduceLight.setPreferredSize(new Dimension(140, 25));
         add(new JButton[]{reduceLight});
 
         turnOff = new JButton("Turn off Lights");
         turnOff.setEnabled(false);
-        scroll.setBounds(5, 40, UIConstants.COMPONENTWIDTH, 300);
+        turnOff.setPreferredSize(new Dimension(140, 25));
         add(new JButton[]{turnOff});
 
         turnOn = new JButton("Turn on Lights");
         turnOn.setEnabled(true);
-        scroll.setBounds(5, 40, UIConstants.COMPONENTWIDTH, 300);
+        turnOn.setPreferredSize(new Dimension(140, 25));
         add(new JButton[]{turnOn});
+
+//colours 
+        blue = new JButton("Switch to Blue");
+        blue.setPreferredSize(new Dimension(140, 25));
+        add(new JButton[]{blue});
+
+        green = new JButton("Switch to Green");
+        green.setPreferredSize(new Dimension(140, 25));
+        add(new JButton[]{green});
+
+        orange = new JButton("Switch to Orange");
+        orange.setPreferredSize(new Dimension(140, 25));
+        add(new JButton[]{orange});
+
+        purple = new JButton("Switch to Purple");
+        purple.setPreferredSize(new Dimension(140, 25));
+        add(new JButton[]{purple});
+
     }
 
     @Override
@@ -69,6 +97,35 @@ public class LightsUI extends ClientUI {
             reduceLight.setEnabled(true);
             turnOff.setEnabled(true);
             turnOn.setEnabled(false);
+
+        } else if (e.getSource() == blue) {
+            parent.blueLight();
+            // green.setEnabled(false);
+            //  orange.setEnabled(false);
+            //  purple.setEnabled(false);
+            //  pink.setEnabled(false);
+
+        } else if (e.getSource() == green) {
+            parent.greenLight();
+            //   blue.setEnabled(false);
+            //   orange.setEnabled(false);
+            //   purple.setEnabled(false);
+            //   pink.setEnabled(false);
+
+        } else if (e.getSource() == orange) {
+            parent.orangeLight();
+            //    green.setEnabled(false);
+            //   blue.setEnabled(false);
+            //  purple.setEnabled(false);
+            //  pink.setEnabled(false);
+
+        } else if (e.getSource() == purple) {
+            parent.purpleLight();
+            //  green.setEnabled(false);
+            //   orange.setEnabled(false);
+            //   blue.setEnabled(false);
+            //   pink.setEnabled(false);
+
         }
     }
 }

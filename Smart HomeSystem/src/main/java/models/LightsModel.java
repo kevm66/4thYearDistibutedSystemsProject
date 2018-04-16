@@ -1,10 +1,11 @@
 package models;
 
-/**
+/* @File Title:LightsModel.java							
  *
- * @author Karry
+ * @author:Karolina Laptas, x14446332
+ *
+ * @reference sample by Dominic Carr https://moodle.ncirl.ie/course/view.php?id=1473	
  */
-
 public class LightsModel {
 
     public enum Action {

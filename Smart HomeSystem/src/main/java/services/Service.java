@@ -13,19 +13,19 @@ import java.util.logging.Logger;
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException; 
+import javax.swing.UnsupportedLookAndFeelException;
 
 import serviceui.ServiceUI;
 
-/*
- *@author: Kevin Maher 
-        &  Karolina Laptas
+/* @File Title:Service.java							
  *
- * @reference Dominic Carr 									/example.java
+ * @author:Karolina Laptas, x14446332
+ * @author:Kevin Maher,     x14328981
  *
+ * @reference sample by Dominic Carr https://moodle.ncirl.ie/course/view.php?id=1473	
  */
-
 public abstract class Service extends Thread {
+
     protected String SERVICE_TYPE;
     protected String SERVICE_NAME;
     protected int SERVICE_PORT;
@@ -43,6 +43,8 @@ public abstract class Service extends Thread {
 
     public Service(String name, String type) {
         this(name, type, "");
+
+        //update app theme
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException ex) {

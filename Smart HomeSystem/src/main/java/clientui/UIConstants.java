@@ -1,16 +1,16 @@
 package clientui;
 
-/*
+/* @File Title:UIConstants.java							
  *
- * @reference Dominic Carr https://moodle.ncirl.ie/mod/resource/view.php?id=54977													/example.java
+ * @author:Karolina Laptas, x14446332
+ * @author:Kevin Maher,     x14328981
  *
+ * @reference sample by Dominic Carr https://moodle.ncirl.ie/course/view.php?id=1473	
  */
-
 public class UIConstants {
-    public static final int UIWIDTH = 550;
-    public static final int UIHEIGHT = 650;
-    public static final int COMPONENTWIDTH = 520;
+
+    public static final int UIWIDTH = 650;
+    public static final int UIHEIGHT = 850;
+    public static final int COMPONENTWIDTH = 620;
     public static final int CONTROLY = 425;
-    public static final String TAP_ON = "Tap: ON";
-    public static final String TAP_OFF = "Tap: OFF";
 }

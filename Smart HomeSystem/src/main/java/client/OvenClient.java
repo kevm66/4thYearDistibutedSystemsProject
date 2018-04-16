@@ -2,7 +2,6 @@ package client;
 
 import clientui.OvenUI;
 import com.google.gson.Gson;
-import com.sun.org.apache.bcel.internal.Constants;
 import models.OvenModel;
 
 /*
@@ -12,7 +11,6 @@ import models.OvenModel;
  *
  * @reference sample by Dominic Carr https://moodle.ncirl.ie/course/view.php?id=1473	
  */
-
 public class OvenClient extends Client {
 
     private final String warmTemp = "warm temperature";
@@ -35,8 +33,7 @@ public class OvenClient extends Client {
 
     /**
      * sends a message to warm the oven temperature.
-    */
-    
+     */
     public void warmTemp() {
         String json = new Gson().toJson(new OvenModel(OvenModel.Action.warm));
         String a = sendMessage(json);
@@ -62,6 +59,7 @@ public class OvenClient extends Client {
         }
     }
 //turn off oven messages
+
     public void powerOff() {
         String json = new Gson().toJson(new OvenModel(OvenModel.Action.Off));
         String a = sendMessage(json);
@@ -73,7 +71,7 @@ public class OvenClient extends Client {
             ui.updateArea(ovenM.getMessage());
         }
     }
-    
+
 //turn on oven messages
     public void powerOn() {
         String json = new Gson().toJson(new OvenModel(OvenModel.Action.On));
@@ -87,6 +85,7 @@ public class OvenClient extends Client {
         }
     }
 //set timer message
+
     public void set() {
         String json = new Gson().toJson(new OvenModel(OvenModel.Action.setTimer));
         String a = sendMessage(json);
@@ -99,6 +98,7 @@ public class OvenClient extends Client {
         }
     }
 //reset timer message
+
     public void reset() {
         String json = new Gson().toJson(new OvenModel(OvenModel.Action.reset));
         String a = sendMessage(json);
@@ -106,6 +106,78 @@ public class OvenClient extends Client {
         System.out.println("Client Received " + json);
 
         if (ovenM.getAction() == OvenModel.Action.reset) {
+            isWarming = ovenM.getValue();
+            ui.updateArea(ovenM.getMessage());
+        }
+    }
+
+    public void fan() {
+        String json = new Gson().toJson(new OvenModel(OvenModel.Action.fan));
+        String a = sendMessage(json);
+        OvenModel ovenM = new Gson().fromJson(a, OvenModel.class);
+        System.out.println("Client Received " + json);
+
+        if (ovenM.getAction() == OvenModel.Action.fan) {
+            isWarming = ovenM.getValue();
+            ui.updateArea(ovenM.getMessage());
+        }
+    }
+
+    public void externalFan() {
+        String json = new Gson().toJson(new OvenModel(OvenModel.Action.external));
+        String a = sendMessage(json);
+        OvenModel ovenM = new Gson().fromJson(a, OvenModel.class);
+        System.out.println("Client Received " + json);
+
+        if (ovenM.getAction() == OvenModel.Action.external) {
+            isWarming = ovenM.getValue();
+            ui.updateArea(ovenM.getMessage());
+        }
+    }
+
+    public void defrost() {
+        String json = new Gson().toJson(new OvenModel(OvenModel.Action.defrost));
+        String a = sendMessage(json);
+        OvenModel ovenM = new Gson().fromJson(a, OvenModel.class);
+        System.out.println("Client Received " + json);
+
+        if (ovenM.getAction() == OvenModel.Action.defrost) {
+            isWarming = ovenM.getValue();
+            ui.updateArea(ovenM.getMessage());
+        }
+    }
+
+    public void conventinalGrill() {
+        String json = new Gson().toJson(new OvenModel(OvenModel.Action.both));
+        String a = sendMessage(json);
+        OvenModel ovenM = new Gson().fromJson(a, OvenModel.class);
+        System.out.println("Client Received " + json);
+
+        if (ovenM.getAction() == OvenModel.Action.both) {
+            isWarming = ovenM.getValue();
+            ui.updateArea(ovenM.getMessage());
+        }
+    }
+
+    public void topOven() {
+        String json = new Gson().toJson(new OvenModel(OvenModel.Action.top));
+        String a = sendMessage(json);
+        OvenModel ovenM = new Gson().fromJson(a, OvenModel.class);
+        System.out.println("Client Received " + json);
+
+        if (ovenM.getAction() == OvenModel.Action.top) {
+            isWarming = ovenM.getValue();
+            ui.updateArea(ovenM.getMessage());
+        }
+    }
+
+    public void baseOven() {
+        String json = new Gson().toJson(new OvenModel(OvenModel.Action.base));
+        String a = sendMessage(json);
+        OvenModel ovenM = new Gson().fromJson(a, OvenModel.class);
+        System.out.println("Client Received " + json);
+
+        if (ovenM.getAction() == OvenModel.Action.base) {
             isWarming = ovenM.getValue();
             ui.updateArea(ovenM.getMessage());
         }

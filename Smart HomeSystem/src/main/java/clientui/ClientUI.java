@@ -21,13 +21,15 @@ import java.awt.event.ItemListener;
 import client.Client;
 import javax.swing.JToggleButton;
 
-/*
- *The Class ClientUI.
- * @reference Dominic Carr 													
+/* @File Title:ClientUI.java							
  *
+ * @author:Karolina Laptas, x14446332
+ * @author:Kevin Maher,     x14328981
+ *
+ * @reference sample by Dominic Carr https://moodle.ncirl.ie/course/view.php?id=1473	
  */
-
 public abstract class ClientUI extends JPanel implements ActionListener {
+
     /**
      * The Constant serialVersionUID.
      */
@@ -50,7 +52,7 @@ public abstract class ClientUI extends JPanel implements ActionListener {
         services.setBounds(170, 5, 200, 30);
         controls = new JPanel();
         controls.setBounds(10, UIConstants.CONTROLY, UIConstants.COMPONENTWIDTH,
-                100);
+                150);
         controls.setLayout(new FlowLayout());
         //controls.setBorder(BorderFactory.createLineBorder(Color.black));
         add(controls);
@@ -58,9 +60,9 @@ public abstract class ClientUI extends JPanel implements ActionListener {
         scroll = new JScrollPane();
         scroll.setViewportView(textArea);
         add(scroll);
-        textArea.setText("Welcome to the dashboard!\nClick one of the options below to get started.");
+        textArea.setText("Welcome to the dashboard!\nYour device is in standby mode\nClick the 'On' button below to wake up your device\n");
         //textArea.setText("No Services are currently running.\nPlease run a service to get started.");
-        
+
     }
 
     public void add(JButton[] a) {
@@ -69,7 +71,6 @@ public abstract class ClientUI extends JPanel implements ActionListener {
             controls.add(in);
         }
     }
-    
 
     public void addChoices(Vector<String> a) {
         System.out.println("passed to add choices" + a);

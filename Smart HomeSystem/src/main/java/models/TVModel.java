@@ -1,50 +1,57 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package models;
 
-/**
+/* @File Title:ClientManager.java							
  *
- * @author kevm6
+ * @author:Kevin Maher,     x14328981
+ *
+ * @reference sample by Dominic Carr https://moodle.ncirl.ie/course/view.php?id=1473	
  */
 public class TVModel {
- 
-    private Action  action;
+
+    public enum Action {
+        STATUS, ON, OFF, CONNECT, DISCONNECT, INCREASE_VOLUME, DECREASE_VOLUME, NEXT_CHANNEL, PREVIOUS_CHANNEL;
+    }
+    private Action action;
     private String message;
     private boolean value;
-    
-    public TVModel(boolean STATUS, String msg){
-        throw new UnsupportedOperationException("Not yet supported.");
+
+    public TVModel(Action action) {
+        this.action = action;
     }
-    
-    public TVModel(boolean CONNECT, String msg, boolean connect){
-        throw new UnsupportedOperationException("Not yet supported.");
+
+    public TVModel(Action action, String message) {
+        this.action = action;
+        this.message = message;
     }
-    
-    public TVModel(boolean CONNECT){
-        throw new UnsupportedOperationException("Not yet supported.");
+
+    public TVModel(Action action, String message, boolean value) {
+        this.action = action;
+        this.message = message;
+        this.value = value;
     }
-    
-    public Action getAction(){
+
+    public Action getAction() {
         return action;
     }
-    
-    public boolean getValue(){
-        return value;
+
+    public void setAction(Action action) {
+        this.action = action;
     }
-    
-    public String getMessage(){
+
+    public String getMessage() {
         return message;
     }
-    
-    public static class Action{
-        public static boolean STATUS, ON, OFF, COONECT, DISCONNECT, INCREASE_VOLUME;
-        public static boolean DECREASE_VOLUME, NEXT_CHANNEL, PREVIOUS_CHANNEL;
-        
-        public Action(){
-            
-        }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
+
+    public boolean getValue() {
+        return value;
+    }
+
+    public void setValue(boolean value) {
+        this.value = value;
+    }
+
 }

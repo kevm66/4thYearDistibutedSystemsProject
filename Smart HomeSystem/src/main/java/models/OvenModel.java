@@ -1,8 +1,8 @@
 package models;
 
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
 /*
  * @OvenModel.java							
  *
@@ -10,20 +10,16 @@ import com.google.gson.annotations.SerializedName;
  *
  * @reference sample by Dominic Carr https://moodle.ncirl.ie/course/view.php?id=1473	
  */
-
 public class OvenModel {
 
     public enum Action {
-       STATUS, warm, cool, On, Off, setTimer, reset;
-       
-   
+        STATUS, warm, cool, On, Off, setTimer, reset,
+        fan, external, top, base, both, defrost;
     }
 
     private Action action;
     private String message;
     private boolean value;
-
-
 
     public OvenModel(Action action) {
         this.action = action;
@@ -63,6 +59,5 @@ public class OvenModel {
     public void setValue(boolean value) {
         this.value = value;
     }
-    
-  
+
 }

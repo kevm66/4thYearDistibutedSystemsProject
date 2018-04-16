@@ -17,21 +17,23 @@ import javax.swing.JToggleButton;
 import services.Service;
 import clientui.UIConstants;
 
-/*
+/* @File Title:ClientManager.java							
  *
- * @reference Dominic Carr 													/example.java
+ * @author:Karolina Laptas, x14446332
+ * @author:Kevin Maher,     x14328981
  *
+ * @reference sample by Dominic Carr https://moodle.ncirl.ie/course/view.php?id=1473	
  */
+public class ServiceUI extends JFrame {
 
-public class ServiceUI extends JFrame{
     protected JPanel panel;
     protected JTextArea pane = new JTextArea();
     protected JScrollPane scroll = new JScrollPane();
     private static final long serialVersionUID = -4512962459244007477L;
 
     public ServiceUI(final Service a, String title) {
-        //super(title + " - " + a.getType());
-        super(title);
+        super(title + " - " + a.getType());
+//        super(title);
 //        super(title + " " +a.getDeviceType());
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -65,8 +67,8 @@ public class ServiceUI extends JFrame{
     }
 
     public void updateArea(String a) {
-        pane.setText(a);
-      //  pane.append("\n" + a);
+//        pane.setText(a);
+        pane.append("\n" + a);
     }
 
     public static Point setPosition(Component c) {

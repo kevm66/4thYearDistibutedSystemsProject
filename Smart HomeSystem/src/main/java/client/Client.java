@@ -19,15 +19,18 @@ import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import models.OvenModel;
+import org.eclipse.paho.client.mqttv3.MqttTopic;
 
-/*
+/* @File Title: Client.java							
  *
- * @reference Dominic Carr 													/example.java
+ * @author:Karolina Laptas, x14446332
+ * @author:Kevin Maher,     x14328981
  *
+ * @reference sample by Dominic Carr https://moodle.ncirl.ie/course/view.php?id=1473	
  */
-
 public abstract class Client {
-     protected ClientUI ui;
+
+    protected ClientUI ui;
     protected String serverHost = "";
     protected int serverPort = 0;
     protected String serviceType = "stuff";
@@ -51,6 +54,8 @@ public abstract class Client {
     public Client() {
         serverStatus = "";
         services = new HashMap<String, ServiceInfo>();
+
+        //update theme of app
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException ex) {

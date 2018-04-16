@@ -12,6 +12,7 @@ import serviceui.ServiceUI;
  *
  * @reference sample skeleton by Dominic Carr https://moodle.ncirl.ie/course/view.php?id=1473	
  */
+
 public class OvenService extends Service {
 
     private int highestTemp;
@@ -20,26 +21,36 @@ public class OvenService extends Service {
     private int shortestTime;
     private int currentTemp;
     private int currentTime;
-    private int resetTime;
-    private int setTime;
-    private static boolean isWarmed, isCooling, isOn, isOff,isSet, isReset;
+    private static boolean isWarmed, isCooling, isOn, isOff, isSet, isReset;
+    private static boolean conventional, bottom, top, defrost;
+    private static boolean fan, extrafan;
 
     public OvenService(String name) {
         super(name, "_oven._udp.local.");
         highestTemp = 250;
-        lowestTemp = 0; 
+        lowestTemp = 0;
         longestTime = 60;
         shortestTime = 0;
 // the temperature the oven is at
-        currentTemp = 0; 
-        currentTime = 0; 
+        currentTemp = 0;
+        currentTime = 0;
         isWarmed = false;
         isCooling = false;
         isOn = false;
         isOff = true;
         isSet = false;
         isReset = false;
+
+//oven grilling settings
+        fan = false;
+        extrafan = false;
+        conventional = false;
+        bottom = false;
+        top = false;
+        defrost = false;
+
         ui = new ServiceUI(this, name);
+
     }
 
     @Override
@@ -51,8 +62,7 @@ public class OvenService extends Service {
             String msg = getStatus();
             String json = new Gson().toJson(new OvenModel(OvenModel.Action.STATUS, msg));
             sendBack(json);
-        }
-//warm oven
+        } //warm oven
         else if (ovenM.getAction() == OvenModel.Action.warm) {
             warmTemp();
             String msg = (isWarmed) ? "The oven temperature is increasing" : "Cannot turn temperature up any higher, Oven is on its highest temperature";
@@ -62,8 +72,7 @@ public class OvenService extends Service {
 
             String serviceMessage = (isWarmed) ? "The oven temperature is increasing" : "Cannot turn temperature up any higher, Oven is on its highest temperature";
             ui.updateArea(serviceMessage);
-        }
-//cool oven
+        } //cool oven
         else if (ovenM.getAction() == OvenModel.Action.cool) {
             coldTemp();
             String msg = (isCooling) ? "The oven temperature is decreasing" : "Cannot turn temperature down any lower, Oven is on its lowest temperature";
@@ -81,7 +90,7 @@ public class OvenService extends Service {
             System.out.println(json);
             sendBack(json);
 
-            String serviceMessage = (isOn) ? "The oven is On" : "...";
+            String serviceMessage = (isOn) ? "The oven is On" : "Oven is now turned On";
             ui.updateArea(serviceMessage);
 
 //turn off
@@ -92,10 +101,10 @@ public class OvenService extends Service {
             System.out.println(json);
             sendBack(json);
 
-            String serviceMessage = (isOff) ? "Oven is OFF":"...";
+            String serviceMessage = (isOff) ? "Oven is OFF" : "Oven is now turned off";
             ui.updateArea(serviceMessage);
-            
-        }else if (ovenM.getAction() == OvenModel.Action.reset) {
+//reset timer          
+        } else if (ovenM.getAction() == OvenModel.Action.reset) {
             reset();
             String msg = (isReset) ? "The timer is reset to 0 minutes" : "Sorry  the timer is already reset";
             String json = new Gson().toJson(new OvenModel(OvenModel.Action.reset, msg));
@@ -104,17 +113,83 @@ public class OvenService extends Service {
 
             String serviceMessage = (isReset) ? "The timer is reset to 0 minutes" : "Sorry you cannot reset the timer again";
             ui.updateArea(serviceMessage);
-        
-        }else if (ovenM.getAction() == OvenModel.Action.setTimer) {
+//set timer      
+        } else if (ovenM.getAction() == OvenModel.Action.setTimer) {
             set();
-            String msg = (isSet) ? "A minute have been added to the timer " : "...";//"Sorry the timer is set to 60 minutes cannot add any more";
+            String msg = (isSet) ? "A minute have been added to the timer " : "Minute have been added to your timer";//"Sorry the timer is set to 60 minutes cannot add any more";
             String json = new Gson().toJson(new OvenModel(OvenModel.Action.setTimer, msg));
             System.out.println(json);
             sendBack(json);
 
             String serviceMessage = (isSet) ? "A minute have been added to the timer " : "Sorry you cannot set the timer for any longer";
-            ui.updateArea(serviceMessage);    
-            
+            ui.updateArea(serviceMessage);
+
+//Oven Fan     
+        } else if (ovenM.getAction() == OvenModel.Action.fan) {
+            set();
+            String msg = (fan) ? "Sorry the oven fan is down, Please connect external fan " : "Sorry the oven fan is down, Please connect external fan ";
+            String json = new Gson().toJson(new OvenModel(OvenModel.Action.fan, msg));
+            System.out.println(json);
+            sendBack(json);
+
+            String serviceMessage = (fan) ? "Sorry the oven fan is down, Please connect external fan " : "Sorry the fan is down at the moment, Please connect external fan";
+            ui.updateArea(serviceMessage);
+
+//back up fan      
+        } else if (ovenM.getAction() == OvenModel.Action.external) {
+            set();
+            String msg = (extrafan) ? "External fan is now running .. " : "External fan is now running ..";
+            String json = new Gson().toJson(new OvenModel(OvenModel.Action.external, msg));
+            System.out.println(json);
+            sendBack(json);
+
+            String serviceMessage = (extrafan) ? "External fan is now running .. " : "External fan is already connected .. ";
+            ui.updateArea(serviceMessage);
+
+//defrost      
+        } else if (ovenM.getAction() == OvenModel.Action.defrost) {
+            set();
+            String msg = (defrost) ? "Defrosting already Selected" : "Defrosting Selected";
+            String json = new Gson().toJson(new OvenModel(OvenModel.Action.defrost, msg));
+            System.out.println(json);
+            sendBack(json);
+
+            String serviceMessage = (defrost) ? "Defrosting Selected" : "Defrosting is already selected";
+            ui.updateArea(serviceMessage);
+
+//top grilling selected      
+        } else if (ovenM.getAction() == OvenModel.Action.top) {
+            set();
+            String msg = (top) ? "Top grill already Selected" : "Top grill Selected";
+            String json = new Gson().toJson(new OvenModel(OvenModel.Action.top, msg));
+            System.out.println(json);
+            sendBack(json);
+
+            String serviceMessage = (top) ? "Top grill already Selected" : "Top grill is already selected";
+            ui.updateArea(serviceMessage);
+
+//Base griiling (bottom heat) selected     
+        } else if (ovenM.getAction() == OvenModel.Action.base) {
+            set();
+            String msg = (bottom) ? "Base grill already Selected" : "Base grill Selected";
+            String json = new Gson().toJson(new OvenModel(OvenModel.Action.base, msg));
+            System.out.println(json);
+            sendBack(json);
+
+            String serviceMessage = (bottom) ? "Base grill already Selected" : "Base grill is already selected";
+            ui.updateArea(serviceMessage);
+
+//defrost      
+        } else if (ovenM.getAction() == OvenModel.Action.both) {
+            set();
+            String msg = (conventional) ? "Conventional grill already Selected" : "Conventional grill Selected";
+            String json = new Gson().toJson(new OvenModel(OvenModel.Action.both, msg));
+            System.out.println(json);
+            sendBack(json);
+
+            String serviceMessage = (conventional) ? "Conventional grill already Selected" : "Conventional grill is already selected";
+            ui.updateArea(serviceMessage);
+
         } else {
             sendBack(BAD_COMMAND + " - " + a);
         }
@@ -137,26 +212,52 @@ public class OvenService extends Service {
             isCooling = false;
         }
     }
+
     private void reset() {
-         if (currentTime != 0) {
+        if (currentTime != 0) {
             isReset = true;
-            currentTime = 0;
+            currentTime = -currentTime;
         } else {
             isReset = false;
-            
+
         }
-     }
+    }
+
     private void set() {
-         if (currentTime != longestTime) {
+        if (currentTime != longestTime) {
             isSet = true;
-            currentTime += 01;
+            currentTime += 1;
         } else {
             isSet = false;
             ui.updateArea("Timer is  on " + currentTime + "minutes.");
-            
+
         }
     }
-     
+
+    /* public void externalFan() {
+        System.out.println("Oven is turned Off");
+    }
+     */
+    public void fan() {
+        System.out.println("Oven is turned Off");
+    }
+
+    public void defrost() {
+        // System.out.println("Oven is turned Off");
+
+    }
+
+    public void conventinalGrill() {
+        // System.out.println("Oven is turned Off");
+    }
+
+    public void topOven() {
+        //  System.out.println("Oven is turned Off");
+    }
+
+    public void baseOven() {
+        // System.out.println("Oven is turned Off");
+    }
 
     public void powerOff() {
         System.out.println("Oven is turned Off");
@@ -170,11 +271,13 @@ public class OvenService extends Service {
     public String getStatus() {
         return "Oven is " + currentTemp + "ºC warmed.";
     }
-       
+
+    private String getTimerStatus() {
+        return "Timer is on" + currentTime + "minutes";
+    }
 
     public static void main(String[] args) {
         new OvenService("Oven");
     }
 
-    
 }
