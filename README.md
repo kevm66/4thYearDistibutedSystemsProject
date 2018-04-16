@@ -1,4 +1,4 @@
-# 4thYearDistibutedSystemsProject
+# 4thYearDistibutedSystemsProject - K-Smart Home System
 
 Instructions:
 
