@@ -215,9 +215,10 @@ public class TVService extends Service {
     }
 
     public static void main(String[] args) {
-        new TVService("Kevin's");
-//        new TVService("Karry's ");
-//        new TVService("Dominic's");
+        new TVService("Room 1");
+        new TVService("Room 2");
+        new TVService("Room 3");
+        new TVService("Living Room");
     }
 
 }

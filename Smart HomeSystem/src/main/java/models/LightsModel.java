@@ -9,7 +9,8 @@ package models;
 public class LightsModel {
 
     public enum Action {
-        lighten, darken, STATUS, lightOff, lightOn
+        lighten, darken, STATUS, lightOff, lightOn,
+         blue, green, orange, purple ;
     }
 
     private Action action;

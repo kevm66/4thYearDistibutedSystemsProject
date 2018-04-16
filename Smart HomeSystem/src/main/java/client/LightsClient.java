@@ -27,7 +27,8 @@ public class LightsClient extends Client {
     public static final String TOPIC_BRIGHTNESS = "home/brightness";
     public static final String TOPIC_TEMPERATURE = "home/temperature";
     String topic = "/house/black/world";
-    String content = "The lights will be turned on at 7:25 pm today.";
+    String content = "SUNSET UPDATE: The lights will be turned on at 7:25 pm today.\n"
+            + "WEATHER UPDATE: Today will be provede some sunny spells with minor clouds in the evening. ";
     int qos = 2;
     String broker = "tcp://iot.eclipse.org:1883";
     String clientId = "Publisher";
@@ -122,7 +123,51 @@ public class LightsClient extends Client {
             ui.updateArea(lights.getMessage());
         }
     }
+ public void blueLight() {
+         String json = new Gson().toJson(new LightsModel(LightsModel.Action.blue));
+        String a = sendMessage(json);
+        LightsModel lights = new Gson().fromJson(a, LightsModel.class);
+        System.out.println("Client Received " + json);
 
+        if (lights.getAction() == LightsModel.Action.blue) {
+            modify = lights.getValue();
+            ui.updateArea(lights.getMessage());
+      }
+     }
+    public void greenLight() {
+        String json = new Gson().toJson(new LightsModel(LightsModel.Action.green));
+        String a = sendMessage(json);
+        LightsModel lights = new Gson().fromJson(a, LightsModel.class);
+        System.out.println("Client Received " + json);
+
+        if (lights.getAction() == LightsModel.Action.green) {
+            modify = lights.getValue();
+            ui.updateArea(lights.getMessage());}
+    }
+
+    public void orangeLight() {
+       String json = new Gson().toJson(new LightsModel(LightsModel.Action.orange));
+        String a = sendMessage(json);
+        LightsModel lights = new Gson().fromJson(a, LightsModel.class);
+        System.out.println("Client Received " + json);
+
+        if (lights.getAction() == LightsModel.Action.orange) {
+            modify = lights.getValue();
+            ui.updateArea(lights.getMessage());
+        }
+
+}
+    public void purpleLight() {
+     String json = new Gson().toJson(new LightsModel(LightsModel.Action.purple));
+        String a = sendMessage(json);
+        LightsModel lights = new Gson().fromJson(a, LightsModel.class);
+        System.out.println("Client Received " + json);
+
+        if (lights.getAction() == LightsModel.Action.purple) {
+            modify = lights.getValue();
+            ui.updateArea(lights.getMessage()); 
+        }
+}
     @Override
     public void updatePoll(String msg) {
         if (msg.equals("Lights are fully bright.")) {
@@ -137,23 +182,4 @@ public class LightsClient extends Client {
         modify = false;
     }
 
-    public void blueLight() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void greenLight() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void orangeLight() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void purpleLight() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void pinkLight() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

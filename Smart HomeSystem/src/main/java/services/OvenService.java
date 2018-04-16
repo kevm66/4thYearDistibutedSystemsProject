@@ -21,6 +21,7 @@ public class OvenService extends Service {
     private int shortestTime;
     private int currentTemp;
     private int currentTime;
+    private int cuttentOpt;
     private static boolean isWarmed, isCooling, isOn, isOff, isSet, isReset;
     private static boolean conventional, bottom, top, defrost;
     private static boolean fan, extrafan;
@@ -269,11 +270,8 @@ public class OvenService extends Service {
 
     @Override
     public String getStatus() {
-        return "Oven is " + currentTemp + "ºC warmed.";
-    }
-
-    private String getTimerStatus() {
-        return "Timer is on" + currentTime + "minutes";
+        return "Oven is : " + currentTemp + "ºC warmed." +"\nTimer is set to: "
+                + currentTime +"minutes.";
     }
 
     public static void main(String[] args) {

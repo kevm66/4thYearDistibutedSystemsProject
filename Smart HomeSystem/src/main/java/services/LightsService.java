@@ -27,6 +27,8 @@ public class LightsService extends Service {
     private int darkest;
     private int currentLight;
     private static boolean isLightened, isDarken, off, on;
+    
+     private static boolean blue,green,orange,purple;
 
     String broker = "tcp://iot.eclipse.org:1883";
     String clientId = "Subscriber";
@@ -100,8 +102,9 @@ public class LightsService extends Service {
             String msg = getStatus();
             String json = new Gson().toJson(new LightsModel(LightsModel.Action.STATUS, msg));
             sendBack(json);
-        } //BRIGHTEN ROOM
-        else if (lights.getAction() == LightsModel.Action.lighten) {
+            
+//lighten
+        }  else if (lights.getAction() == LightsModel.Action.lighten) {
             brighten_lights();
             String msg = (isLightened) ? "The Room is brightening by 10%" : "The room cant get any brighter";
             String json = new Gson().toJson(new LightsModel(LightsModel.Action.lighten, msg));
@@ -110,7 +113,8 @@ public class LightsService extends Service {
 
             String serviceMessage = (isLightened) ? "The lights brightened!" : "The lights cant get any brighter..";
             ui.updateArea(serviceMessage);
-        } //DIM ROOM
+        }
+//dim lights
         else if (lights.getAction() == LightsModel.Action.darken) {
             dim_lights();
             String msg = (isDarken) ? "The Room is dimming by 10%" : "The lights cant dim any lower";
@@ -120,7 +124,8 @@ public class LightsService extends Service {
 
             String serviceMessage = (isDarken) ? "The Room is dimming!" : "Sorry the room cant dim any more..";
             ui.updateArea(serviceMessage);
-        } //TURN OFF LIGHTS
+        }
+//power off
         else if (lights.getAction() == LightsModel.Action.lightOff) {
             turn_off_lights();
             String msg = (off) ? "The Lights have been turned off" : "Lights are already off";
@@ -130,7 +135,8 @@ public class LightsService extends Service {
 
             String serviceMessage = (off) ? "Lights turned off" : "Lights are off";
             ui.updateArea(serviceMessage);
-        } //TURN ON LIGHTS
+        }
+//power on
         else if (lights.getAction() == LightsModel.Action.lightOn) {
             turn_on_lights();
             String msg = (on) ? "The Lights have been turned on" : "Lights have been turned on";
@@ -140,6 +146,57 @@ public class LightsService extends Service {
 
             String serviceMessage = (on) ? "Lights turned on" : "Lights are on";
             ui.updateArea(serviceMessage);
+            
+            } 
+//Switch colour
+//blue
+        else if (lights.getAction() == LightsModel.Action.blue) {
+            turn_on_lights();
+            String msg =( blue) ? "The Lights have been switched to Blue colour" : "Lights have been switched to blue";
+            String json = new Gson().toJson(new LightsModel(LightsModel.Action.blue, msg));
+            System.out.println(json);
+            sendBack(json);
+
+            String serviceMessage = (blue) ? "The Lights have been switched to Blue colour" : "Lights have been switched to blue";
+            ui.updateArea(serviceMessage);
+            
+            }
+//Switch colour
+//green
+        else if (lights.getAction() == LightsModel.Action.green) {
+            turn_on_lights();
+            String msg = (green) ? "The Lights have been switched to Green colour" : "Lights have been switched to Green";
+            String json = new Gson().toJson(new LightsModel(LightsModel.Action.green, msg));
+            System.out.println(json);
+            sendBack(json);
+
+            String serviceMessage = (green) ? "The Lights have been switched to Green colour" : "Lights have been switched to Green";
+            ui.updateArea(serviceMessage);
+        } 
+//Switch colour
+//orange
+        else if (lights.getAction() == LightsModel.Action.orange) {
+            turn_on_lights();
+            String msg = (orange) ? "The Lights have been switched to Orange colour" : "Lights have been switched to Orange";
+            String json = new Gson().toJson(new LightsModel(LightsModel.Action.orange, msg));
+            System.out.println(json);
+            sendBack(json);
+
+            String serviceMessage = (orange) ? "The Lights have been switched to Orange colour" : "Lights have been switched to Orange";
+            ui.updateArea(serviceMessage);
+//Switch colour
+//purple
+        }else if (lights.getAction() == LightsModel.Action.purple) {
+            turn_on_lights();
+            String msg = (purple) ? "The Lights have been switched to Purple colour" : "Lights have been switched to Purple";
+            String json = new Gson().toJson(new LightsModel(LightsModel.Action.purple, msg));
+            System.out.println(json);
+            sendBack(json);
+
+            String serviceMessage = (purple) ? "The Lights have been switched to Purple colour" : "Lights have been switched to Purple";
+            ui.updateArea(serviceMessage);
+            
+            
         } else {
             sendBack(BAD_COMMAND + " - " + a);
         }
