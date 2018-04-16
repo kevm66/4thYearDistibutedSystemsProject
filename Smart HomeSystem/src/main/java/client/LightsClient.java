@@ -22,8 +22,12 @@ public class LightsClient extends Client {
     private final String turnOff = "turn off";
     private final String turnOn = "Turn on";
     private boolean modify = false;
+    
+    
 
     public static final String BROKER_URL = "tcp://broker.mqttdashboard.com:1883";
+    
+    
     public static final String TOPIC_BRIGHTNESS = "home/brightness";
     public static final String TOPIC_TEMPERATURE = "home/temperature";
     String topic = "/house/black/world";

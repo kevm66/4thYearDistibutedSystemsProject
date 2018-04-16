@@ -216,7 +216,7 @@ public abstract class Client {
                 out.close();
                 pollSocket.close();
             } catch (Exception ioe) {
-                ui.updateArea("Server Down - attempting to poll service");
+                ui.updateArea("This device had gone offline, attempting to reconnectto this device or another device");
             }
         }
     }
